@@ -9,7 +9,12 @@ const expressStaticGzip = require('express-static-gzip');
 app.use(express.json());
 app.use(expressStaticGzip(path.join(__dirname, '../client/dist'), { enableBrotli: true, orderPreference: ['br'] }));
 
+// * TODO *
+// extend existing API and create PUT and DELETE requests
+
 app.get('/sidebar/summary', function (req, res) {
+  // console.log(req, 'req body');
+
   model.getOneProduct((err, results) => {
     if (err) {
       console.log('error', err);
@@ -20,7 +25,7 @@ app.get('/sidebar/summary', function (req, res) {
   })
 })
 
-app.post('/sidebar/summary', (req, res) => {
+app.put('/sidebar/summary', (req, res) => {
   model.updateProduct(req.body, (err, results) => {
     if (err) {
       console.log('err', err);
@@ -31,6 +36,14 @@ app.post('/sidebar/summary', (req, res) => {
   })
 })
 
+
+app.post('/sidebar/summary', (req, res) => {
+  // should i update the database as well?
+})
+
+app.delete('/sidebar/summary', (req, res) => {
+
+})
 // app.post('/kix', (req, res) => {
 //   model.updateProductColor(req.body, (err, results) => {
 //     if (err) {
